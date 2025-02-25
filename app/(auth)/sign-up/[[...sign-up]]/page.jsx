@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function Page() {
   return (
-    <div className="bg-white flex">
+    <div className="flex items-center justify-center bg-white">
       <div className="hidden lg:block fixed left-0 top-0 h-full w-1/2">
         <Image
           src={"/signup_bg.jpg"}
