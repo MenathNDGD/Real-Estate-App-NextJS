@@ -5,12 +5,14 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 
+import { UserButton, useUser } from "@clerk/nextjs";
 import { LogIn, Plus } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
 const Header = () => {
   const pathname = usePathname();
+  const { user, isSignedIn } = useUser();
 
   useEffect(() => {}, []);
 
@@ -38,15 +40,21 @@ const Header = () => {
           <li className={`hover:text-primary`}>Find an Agent</li>
         </ul>
       </div>
-      <div className="flex gap-4">
+      <div className="flex gap-4 items-center">
         <Button className="flex gap-2">
           <Plus className="h-8 w-8" />
           Add Property
         </Button>
-        <Button className="flex gap-2" variant="outline">
-          <LogIn className="h-8 w-8" />
-          Login
-        </Button>
+        {isSignedIn ? (
+          <UserButton />
+        ) : (
+          <Link href={"/sign-in"}>
+            <Button className="flex gap-2" variant="outline">
+              <LogIn className="h-8 w-8" />
+              Sign In
+            </Button>
+          </Link>
+        )}
       </div>
     </div>
   );
